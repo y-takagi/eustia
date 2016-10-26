@@ -1,0 +1,4 @@
+y-takagi/webhook-test:
+  push:
+    master:
+      session: mydag/mydag

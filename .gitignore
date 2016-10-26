@@ -1,0 +1,18 @@
+# Ignore bundler config
+/.bundle
+vendor
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/log/*.lck
+/tmp
+
+# Ignore for common files
+.*.swp
+*~
+.DS_Store
+
+# Ignore for digdag
+/.digdag-wrapper
+.digdag
+*.pyc
