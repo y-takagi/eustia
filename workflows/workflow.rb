@@ -5,7 +5,6 @@ class Workflow
   end
 
   def run
-    raise "No workflow to run." unless @session
     return if skipFlow?
     %x( digdag start #{workflow} --session now -e #{ENV['DIGDAG_ENDPOINT']} )
   end

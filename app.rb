@@ -9,7 +9,7 @@ $webhook = YAML.load_file("webhook.yml")
 post '/payload' do
   payload = JSON.parse(request.body.read)
   workflow = workflow_for(payload)
-  workflow.run
+  workflow&.run
 end
 
 def verify_signature(payload_body)
@@ -26,10 +26,10 @@ end
 
 def workflow_for(payload)
   session_data = session_for(payload)
-  raise "No session data." unless session_data
+  session = session_data.dig('session')
+  return unless session
 
-  session = session_data['session']
-  if klass = session_data['custom_klass']
+  if klass = session_data.dig('custom_klass')
     Object.const_get(klass).new(session, payload)
   else
     Workflow.new(session)
