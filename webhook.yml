@@ -1,4 +1,4 @@
-y-takagi/webhook-test:
+y-takagi/eustia:
   push:
     master:
-      session: mydag/mydag
+      session: sample/eustia
