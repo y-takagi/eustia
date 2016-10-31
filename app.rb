@@ -8,8 +8,9 @@ $webhook = YAML.load_file("webhook.yml")
 
 post '/payload' do
   payload = JSON.parse(request.body.read)
-  workflow = workflow_for(payload)
-  workflow&.run
+  if workflow = workflow_for(payload)
+    workflow.run
+  end
 end
 
 def verify_signature(payload_body)
@@ -20,16 +21,16 @@ end
 def session_for(payload)
   event = request.env['HTTP_X_GITHUB_EVENT']
   repo = payload.dig('repository', 'full_name')
-  branch = payload['ref']&.match(/refs\/heads\/(.+$)/)[1]
+  branch = payload['ref']&.match(/refs\/heads\/(.+$)/)&.[](1)
   $webhook.dig(repo, event, branch)
 end
 
 def workflow_for(payload)
   session_data = session_for(payload)
-  session = session_data.dig('session')
+  session = session_data&.[]('session')
   return unless session
 
-  if klass = session_data.dig('custom_klass')
+  if klass = session_data['custom_klass']
     Object.const_get(klass).new(session, payload)
   else
     Workflow.new(session)
