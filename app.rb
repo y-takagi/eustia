@@ -19,8 +19,8 @@ end
 
 def session_for(payload)
   event = request.env['HTTP_X_GITHUB_EVENT']
-  repo = payload['repository']['full_name']
-  branch = payload['ref'].match(/refs\/heads\/(.+$)/)[1]
+  repo = payload.dig('repository', 'full_name')
+  branch = payload['ref']&.match(/refs\/heads\/(.+$)/)[1]
   $webhook.dig(repo, event, branch)
 end
 
