@@ -1,4 +1,0 @@
-y-takagi/eustia:
-  push:
-    master:
-      session: sample/update_container

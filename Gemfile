@@ -1,3 +1,4 @@
 source "https://rubygems.org"
 
-gem 'sinatra'
+# Specify your gem's dependencies in eustia.gemspec
+gemspec

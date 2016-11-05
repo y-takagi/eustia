@@ -1,18 +1,18 @@
-# Ignore bundler config
+# Ignore for gem
 /.bundle
-vendor
-
-# Ignore all logfiles and tempfiles.
-/log/*.log
-/log/*.lck
+/.yardoc
+/Gemfile.lock
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
 /tmp
+
+# Ignore bundler config
+vendor
 
 # Ignore for common files
 .*.swp
 *~
 .DS_Store
-
-# Ignore for digdag
-/.digdag-wrapper
-.digdag
-*.pyc
