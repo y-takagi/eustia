@@ -12,8 +12,11 @@ module Eustia
     attr_accessor :github_webhook, :digdag_projects, :digdag_endpoint
 
     def initialize
-      @github_webhook = 'webhook.yml'
       @digdag_projects = []
+    end
+
+    def github_webhook= path
+      @github_webhook = YAML.load_file(File.expand_path(path))
     end
   end
 end

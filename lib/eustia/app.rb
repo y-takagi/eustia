@@ -18,11 +18,11 @@ module Eustia
     end
 
     def session_for(payload)
+      return unless Eustia.configuration.github_webhook
       event = request.env['HTTP_X_GITHUB_EVENT']
       repo = payload.dig('repository', 'full_name')
       branch = payload['ref']&.match(/refs\/heads\/(.+$)/)&.[](1)
-      gh_webhook = YAML.load_file(File.expand_path(Eustia.configuration.github_webhook))
-      gh_webhook.dig(repo, event, branch)
+      Eustia.configuration.github_webhook.dig(repo, event, branch)
     end
 
     def workflow_for(payload)
